@@ -29,6 +29,7 @@ index = {"convert_smiles": "MolClearner.ipynb",
          "MolecularGraphDataset": "MolGraphDataset.ipynb",
          "molgraph_collate_fn": "MolGraphDataset.ipynb",
          "MolGraphDataLoader": "MolGraphDataset.ipynb",
+         "__all__": "all.ipynb",
          "MessageGCN": "model.ipynb",
          "UpdateGCN": "model.ipynb",
          "GCNMPNmodel": "model.ipynb"}
