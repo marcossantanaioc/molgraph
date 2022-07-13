@@ -35,6 +35,7 @@ index = {"convert_smiles": "MolClearner.ipynb",
 
 modules = ["utils/sanitizer.py",
            "molgraphdataset.py",
+           "all.py",
            "models/gcnn.py"]
 
 doc_url = "https://marcossantanaioc.github.io/molgraph/"
