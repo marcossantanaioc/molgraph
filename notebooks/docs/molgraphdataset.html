@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.0.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>molgraph – molgraphdataset</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 20,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="styles.css">
+</head>
+
+<body class="nav-sidebar floating nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg navbar-dark ">
+      <div class="navbar-container container-fluid">
+      <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">molgraph</span>
+  </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item compact">
+    <a class="nav-link" href="https://github.com/marcossantanaioc/molgraph/tree/master/"><i class="bi bi-github" role="img">
+</i> 
+ </a>
+  </li>  
+</ul>
+              <div class="quarto-toggle-container">
+                  <a href="" class="quarto-reader-toggle nav-link" onclick="window.quartoToggleReader(); return false;" title="Toggle reader mode">
+  <div class="quarto-reader-toggle-btn">
+  <i class="bi"></i>
+  </div>
+</a>
+              </div>
+              <div id="quarto-search" class="" title="Search"></div>
+          </div> <!-- /navcollapse -->
+      </div> <!-- /container-fluid -->
+    </nav>
+  <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+    <div class="container-fluid d-flex justify-content-between">
+      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
+        <i class="bi bi-chevron-right"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation floating overflow-auto">
+</nav>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#molgraphdataloader" id="toc-molgraphdataloader" class="nav-link active" data-scroll-target="#molgraphdataloader">MolGraphDataLoader</a>
+  <ul class="collapse">
+  <li><a href="#molgraph_collate_fn" id="toc-molgraph_collate_fn" class="nav-link" data-scroll-target="#molgraph_collate_fn">molgraph_collate_fn</a></li>
+  </ul></li>
+  <li><a href="#moleculargraphdataset" id="toc-moleculargraphdataset" class="nav-link" data-scroll-target="#moleculargraphdataset">MolecularGraphDataset</a>
+  <ul class="collapse">
+  <li><a href="#save_df" id="toc-save_df" class="nav-link" data-scroll-target="#save_df">save_df</a></li>
+  </ul></li>
+  <li><a href="#moleculardataset" id="toc-moleculardataset" class="nav-link" data-scroll-target="#moleculardataset">MolecularDataset</a></li>
+  <li><a href="#moleculargraph" id="toc-moleculargraph" class="nav-link" data-scroll-target="#moleculargraph">MolecularGraph</a></li>
+  <li><a href="#bondfeaturizer" id="toc-bondfeaturizer" class="nav-link" data-scroll-target="#bondfeaturizer">BondFeaturizer</a></li>
+  <li><a href="#atomfeaturizer" id="toc-atomfeaturizer" class="nav-link" data-scroll-target="#atomfeaturizer">AtomFeaturizer</a>
+  <ul class="collapse">
+  <li><a href="#convert_smiles" id="toc-convert_smiles" class="nav-link" data-scroll-target="#convert_smiles">convert_smiles</a></li>
+  <li><a href="#encode_onehot" id="toc-encode_onehot" class="nav-link" data-scroll-target="#encode_onehot">encode_onehot</a></li>
+  </ul></li>
+  </ul>
+<div class="toc-actions"><div><i class="bi bi-github"></i></div><div class="action-links"><p><a href="https://github.com/marcossantanaioc/molgraph/tree/master/issues/new" class="toc-action">Report an issue</a></p></div></div></nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+
+<!-- WARNING: THIS FILE WAS AUTOGENERATED! DO NOT EDIT! -->
+<hr>
+<section id="molgraphdataloader" class="level3">
+<h3 class="anchored" data-anchor-id="molgraphdataloader">MolGraphDataLoader</h3>
+<blockquote class="blockquote">
+<pre><code> MolGraphDataLoader (dataset=None, bs=None, num_workers=0,
+                     pin_memory=False, timeout=0, batch_size=None,
+                     shuffle=False, drop_last=False, indexed=None, n=None,
+                     device=None, persistent_workers=False,
+                     pin_memory_device='', wif=None, before_iter=None,
+                     after_item=None, before_batch=None, after_batch=None,
+                     after_iter=None, create_batches=None,
+                     create_item=None, create_batch=None, retain=None,
+                     get_idxs=None, sample=None, shuffle_fn=None,
+                     do_batch=None)</code></pre>
+</blockquote>
+<p>API compatible with PyTorch DataLoader, with a lot more callbacks and flexibility</p>
+<hr>
+<section id="molgraph_collate_fn" class="level4">
+<h4 class="anchored" data-anchor-id="molgraph_collate_fn">molgraph_collate_fn</h4>
+<blockquote class="blockquote">
+<pre><code> molgraph_collate_fn (data)</code></pre>
+</blockquote>
+<pre><code>/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... 
+Parameters 
+------------------------------------------------------------------------------------------------------------ in 
+Class to create a dataset for MolecularGraphDataset modeling.
+...
+  else: warn(msg)
+/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... 
+Attributes 
+------------------------------------------------------------------------------------------------------------ in 
+Class to create a dataset for MolecularGraphDataset modeling.
+...
+  else: warn(msg)
+/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Attributes
+  else: warn(msg)</code></pre>
+<hr>
+</section>
+</section>
+<section id="moleculargraphdataset" class="level3">
+<h3 class="anchored" data-anchor-id="moleculargraphdataset">MolecularGraphDataset</h3>
+<blockquote class="blockquote">
+<pre><code> MolecularGraphDataset (df:pandas.core.frame.DataFrame, smiles_col:str,
+                        targets_col:str, task_id:str=None)</code></pre>
+</blockquote>
+<p>Class to create a dataset for MolecularGraphDataset modeling.</p>
+<table class="table">
+<colgroup>
+<col style="width: 6%">
+<col style="width: 25%">
+<col style="width: 34%">
+<col style="width: 34%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Default</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>df</td>
+<td>DataFrame</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td>smiles_col</td>
+<td>str</td>
+<td></td>
+<td>A string representing the column of <code>data</code> with SMILES.</td>
+</tr>
+<tr class="odd">
+<td>targets_col</td>
+<td>str</td>
+<td></td>
+<td>A string representing the column of <code>data</code> with the target variable.</td>
+</tr>
+<tr class="even">
+<td>task_id</td>
+<td>str</td>
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<section id="save_df" class="level4">
+<h4 class="anchored" data-anchor-id="save_df">save_df</h4>
+<blockquote class="blockquote">
+<pre><code> save_df (df, fname:str)</code></pre>
+</blockquote>
+<p>Save DataFrame to file</p>
+<pre><code>/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... 
+Parameters 
+------------------------------------------------------------------------------------------------------------ in 
+A generic class to handle tabular (e.g. dataframes) data for QSAR tasks.
+...
+  else: warn(msg)
+/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... 
+Attributes 
+------------------------------------------------------------------------------------------------------------ in 
+A generic class to handle tabular (e.g. dataframes) data for QSAR tasks.
+...
+  else: warn(msg)</code></pre>
+<hr>
+</section>
+</section>
+<section id="moleculardataset" class="level3">
+<h3 class="anchored" data-anchor-id="moleculardataset">MolecularDataset</h3>
+<blockquote class="blockquote">
+<pre><code> MolecularDataset (df:pandas.core.frame.DataFrame, smiles_col:str,
+                   targets_col:str)</code></pre>
+</blockquote>
+<p>A generic class to handle tabular (e.g.&nbsp;dataframes) data for QSAR tasks.</p>
+<table class="table">
+<colgroup>
+<col style="width: 9%">
+<col style="width: 38%">
+<col style="width: 52%">
+</colgroup>
+<thead>
+<tr class="header">
+<th></th>
+<th><strong>Type</strong></th>
+<th><strong>Details</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>df</td>
+<td>DataFrame</td>
+<td>A <code>pandas.DataFrame</code> object with the data used for the modeling task.</td>
+</tr>
+<tr class="even">
+<td>smiles_col</td>
+<td>str</td>
+<td>A string representing the column of <code>df</code> with SMILES.</td>
+</tr>
+<tr class="odd">
+<td>targets_col</td>
+<td>str</td>
+<td>A string representing the column of <code>df</code> with the target variable.</td>
+</tr>
+</tbody>
+</table>
+<pre><code>/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... 
+Arguments: 
+----------------------------------------------------------------- in 
+Parent class for Molecular graphs
+...
+  else: warn(msg)
+/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... 
+Attributes: 
+----------------------------------------------------------------- in 
+Parent class for Molecular graphs
+...
+  else: warn(msg)
+/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Arguments:
+  else: warn(msg)
+/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Attributes:
+  else: warn(msg)</code></pre>
+<hr>
+</section>
+<section id="moleculargraph" class="level3">
+<h3 class="anchored" data-anchor-id="moleculargraph">MolecularGraph</h3>
+<blockquote class="blockquote">
+<pre><code> MolecularGraph (smiles:str, target:&lt;built-infunctionarray&gt;)</code></pre>
+</blockquote>
+<p>Parent class for Molecular graphs</p>
+<hr>
+</section>
+<section id="bondfeaturizer" class="level3">
+<h3 class="anchored" data-anchor-id="bondfeaturizer">BondFeaturizer</h3>
+<blockquote class="blockquote">
+<pre><code> BondFeaturizer ()</code></pre>
+</blockquote>
+<p>Initialize self. See help(type(self)) for accurate signature.</p>
+<hr>
+</section>
+<section id="atomfeaturizer" class="level3">
+<h3 class="anchored" data-anchor-id="atomfeaturizer">AtomFeaturizer</h3>
+<blockquote class="blockquote">
+<pre><code> AtomFeaturizer ()</code></pre>
+</blockquote>
+<p>Initialize self. See help(type(self)) for accurate signature.</p>
+<hr>
+<section id="convert_smiles" class="level4">
+<h4 class="anchored" data-anchor-id="convert_smiles">convert_smiles</h4>
+<blockquote class="blockquote">
+<pre><code> convert_smiles (mol, sanitize=False)</code></pre>
+</blockquote>
+<hr>
+</section>
+<section id="encode_onehot" class="level4">
+<h4 class="anchored" data-anchor-id="encode_onehot">encode_onehot</h4>
+<blockquote class="blockquote">
+<pre><code> encode_onehot (value:int, choices)</code></pre>
+</blockquote>
+<p>Creates a one-hot encoding with an extra category for uncommon values.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const clipboard = new window.ClipboardJS('.code-copy-button', {
+    target: function(trigger) {
+      return trigger.previousElementSibling;
+    }
+  });
+  clipboard.on('success', function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    setTimeout(function() {
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  });
+  function tippyHover(el, contentFn) {
+    const config = {
+      allowHTML: true,
+      content: contentFn,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start'
+    };
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      let href = ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      return note.innerHTML;
+    });
+  }
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const cites = ref.parentNode.getAttribute('data-cites').split(' ');
+    tippyHover(ref, function() {
+      var popup = window.document.createElement('div');
+      cites.forEach(function(cite) {
+        var citeDiv = window.document.createElement('div');
+        citeDiv.classList.add('hanging-indent');
+        citeDiv.classList.add('csl-entry');
+        var biblioDiv = window.document.getElementById('ref-' + cite);
+        if (biblioDiv) {
+          citeDiv.innerHTML = biblioDiv.innerHTML;
+        }
+        popup.appendChild(citeDiv);
+      });
+      return popup.innerHTML;
+    });
+  }
+});
+</script>
+</div> <!-- /content -->
+
+
+
+</body></html>

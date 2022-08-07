@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['GCNMPNmodel']
 
-# %% ../notebooks/model.ipynb 3
+# %% ../notebooks/model.ipynb 4
 import torch
 from torch import nn
 from fastai.data.core import DataLoader, DataLoaders, Datasets
@@ -13,7 +13,8 @@ from fastai.torch_core import Module
 from ..layers import *
 from fastai.layers import SigmoidRange
 
-# %% ../notebooks/model.ipynb 4
+
+# %% ../notebooks/model.ipynb 5
 class GCNMPNmodel(Module):
     
     """

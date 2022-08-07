@@ -11,7 +11,7 @@ __all__ = ['TARGET2TYPE', 'TYPE2TARGET', 'CHIRAL_DICT', 'HYBRIDIZATION', 'ELEMEN
            'molgraph_collate_fn', 'MolGraphDataLoader']
 
 
-# %% ../notebooks/molgraphdataset.ipynb 3
+# %% ../notebooks/molgraphdataset.ipynb 4
 import torch
 from torch import nn
 from fastai.data.core import DataLoader, DataLoaders, Datasets
@@ -44,7 +44,7 @@ from pathlib import Path
 
 from fastai.data.transforms import TrainTestSplitter, IndexSplitter, ColSplitter
 
-# %% ../notebooks/molgraphdataset.ipynb 4
+# %% ../notebooks/molgraphdataset.ipynb 5
 # Cell
 TARGET2TYPE = {'continuous': 'regression',
                'binary': 'classification',
@@ -71,7 +71,7 @@ HYBRIDIZATION = {Chem.rdchem.HybridizationType.UNSPECIFIED: 0,
 
 ELEMENTS = [1,5,6,7,8,9,15,16,17,35,53]
 
-# %% ../notebooks/molgraphdataset.ipynb 5
+# %% ../notebooks/molgraphdataset.ipynb 6
 def encode_onehot(value: int, choices):
     """
     Creates a one-hot encoding with an extra category for uncommon values.
@@ -95,8 +95,14 @@ def convert_smiles(mol, sanitize=False):
             return None
     elif isinstance(mol, rdchem.Mol):
         return mol
-    
+
+
+# %% ../notebooks/molgraphdataset.ipynb 7
 class AtomFeaturizer:
+    
+    """Generate features for an atom ´a´
+    """
+    
     def __init__(self):
 
         self.ATOM_FEATURES = {
@@ -160,7 +166,11 @@ class AtomFeaturizer:
         return torch.cat(features, -1)
 
 
+# %% ../notebooks/molgraphdataset.ipynb 9
 class BondFeaturizer:
+    """Generates features for a bond between atoms ´a´ and ´b´
+    
+    """
     def __init__(self):
 
         self.BOND_TYPES = {Chem.rdchem.BondType.SINGLE: 0,
@@ -206,22 +216,19 @@ class BondFeaturizer:
         return torch.cat(features,-1)
 
 
+# %% ../notebooks/molgraphdataset.ipynb 11
 class MolecularGraph:
     """
-    Parent class for Molecular graphs
-
-    Converts a Chem.Mol object into a molecular graph representation
+    Parent class for Molecular graphs. Converts a Chem.Mol object into a molecular graph representation
 
 
     Arguments:
-    -----------------------------------------------------------------
 
         smiles : str
             A SMILES representing a molecular structure
 
 
      Attributes:
-    -----------------------------------------------------------------
 
         mol : Chem.Mol
             `Chem.Mol` object generated from `smiles`
@@ -240,7 +247,7 @@ class MolecularGraph:
 
     """
 
-    def __init__(self, smiles:str, target:np.array):
+    def __init__(self, smiles:str, target:float):
 
 
         self.smiles = smiles
@@ -295,14 +302,13 @@ class MolecularGraph:
 
         return self
 
-
+# %% ../notebooks/molgraphdataset.ipynb 13
 class MolecularDataset:
 
     """
     A generic class to handle tabular (e.g. dataframes) data for QSAR tasks.
 
-    Parameters
-    ------------------------------------------------------------------------------------------------------------
+    Parameters:
 
         df : DataFrame
             A `pandas.DataFrame` object with the data used for the modeling task.
@@ -314,8 +320,7 @@ class MolecularDataset:
             A string representing the column of `df` with SMILES.
 
 
-    Attributes
-    ------------------------------------------------------------------------------------------------------------
+    Attributes:
 
         df : `DataFrame`
             A `pandas.DataFrame` object with the data used for the modeling task.
@@ -397,6 +402,8 @@ def save_df(df, fname:str):
     """Save DataFrame to file"""
     df.to_csv(fname, index=False)
 
+
+# %% ../notebooks/molgraphdataset.ipynb 15
 class MolecularGraphDataset(MolecularDataset):
 
     """
@@ -406,8 +413,7 @@ class MolecularGraphDataset(MolecularDataset):
 
     Instead use static methods `MolecularGraphDataset.from_df` or `MolecularGraphDataset.from_csv` for that purpose.
 
-    Parameters
-    ------------------------------------------------------------------------------------------------------------
+    Parameters:
 
         data : DataFrame
 
@@ -422,8 +428,7 @@ class MolecularGraphDataset(MolecularDataset):
             A string representing the column of `data` with SMILES.
 
 
-    Attributes
-    ------------------------------------------------------------------------------------------------------------
+    Attributes:
 
         data : MolecularDataset
 
@@ -560,8 +565,7 @@ class MolecularGraphDataset(MolecularDataset):
 
         """Build a `MolecularGraphDataset` from a csv file using `smiles_cols`, `targets_cols` and `task_id`.
 
-        Arguments
-        ------------------------------------------------------------------------------------------------------------
+        Arguments:
 
         data_path : str
             A string representing the path to the modeling dataset
@@ -575,8 +579,7 @@ class MolecularGraphDataset(MolecularDataset):
         process_data : bool
             If True, process the dataset using `MolecularGraphDataset.preprocessing`
 
-        Returns
-        ------------------------------------------------------------------------------------------------------------
+        Returns:
             Returns a `MolecularGraphDataset` for ready modeling tasks.
 
         """
@@ -595,8 +598,7 @@ class MolecularGraphDataset(MolecularDataset):
 
         """Builds a `MolecularGraphDataset` from a dataframe using `smiles_cols`, `targets_cols` and `task_id`.
 
-        Arguments
-        ------------------------------------------------------------------------------------------------------------
+        Arguments:
 
             df : DataFrame
                 A `pandas.DataFrame` object with the data used for the modeling task.
@@ -610,8 +612,7 @@ class MolecularGraphDataset(MolecularDataset):
             censored : bool
                 If true, removes censored samples from `df`.
 
-        Returns
-        ------------------------------------------------------------------------------------------------------------
+        Returns:
             Returns a `MolecularGraphDataset` for ready modeling tasks.
 
         """
@@ -628,8 +629,7 @@ class MolecularGraphDataset(MolecularDataset):
 
         """Creates a dataset for modeling applying featurization and splitting the data into train and test sets.
 
-        Arguments
-        ------------------------------------------------------------------------------------------------------------
+        Arguments:
 
             splitter : Splitter
                 A class or function that returns splits of the data. Default: TrainTestSplitter.
@@ -640,8 +640,7 @@ class MolecularGraphDataset(MolecularDataset):
             test_size : float
                 The amount of data used as test set.
 
-        Returns
-        ------------------------------------------------------------------------------------------------------------
+        Returns:
             Returns a `MolecularGraphDataset` with train/test splits, calculated features and targets.
         """
 
@@ -680,6 +679,8 @@ class MolecularGraphDataset(MolecularDataset):
         return self
 
 
+
+# %% ../notebooks/molgraphdataset.ipynb 20
 def molgraph_collate_fn(data):
     n_samples = len(data)
     (node_features_0, edge_features_0, adjacency_0, degree_0), targets_0 = data[0]
@@ -710,10 +711,12 @@ def molgraph_collate_fn(data):
     return (node_tensors, edge_tensors, adjacency_tensors, degree_tensors), target_tensors
 
 
+
+# %% ../notebooks/molgraphdataset.ipynb 21
 class MolGraphDataLoader(DataLoader):
 
     @classmethod
-    def dataloders(cls, dataset:Tuple[MolecularGraphDataset, MolecularGraphDataset], bs:int=32, shuffle:bool=True, collate_fn=None, drop_last:bool=True, device='cpu'):
+    def dataloaders(cls, dataset:Tuple[MolecularGraphDataset, MolecularGraphDataset], bs:int=32, shuffle:bool=True, collate_fn=None, drop_last:bool=True, device='cpu'):
 
         if collate_fn is None:
             raise ValueError('The collate function is invalid. Please pass a valid function.')

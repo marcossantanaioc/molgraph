@@ -1,0 +1,37 @@
+[
+  {
+    "objectID": "molgraphdataset.html",
+    "href": "molgraphdataset.html",
+    "title": "molgraph",
+    "section": "",
+    "text": "MolGraphDataLoader\n\n MolGraphDataLoader (dataset=None, bs=None, num_workers=0,\n                     pin_memory=False, timeout=0, batch_size=None,\n                     shuffle=False, drop_last=False, indexed=None, n=None,\n                     device=None, persistent_workers=False,\n                     pin_memory_device='', wif=None, before_iter=None,\n                     after_item=None, before_batch=None, after_batch=None,\n                     after_iter=None, create_batches=None,\n                     create_item=None, create_batch=None, retain=None,\n                     get_idxs=None, sample=None, shuffle_fn=None,\n                     do_batch=None)\n\nAPI compatible with PyTorch DataLoader, with a lot more callbacks and flexibility\n\n\nmolgraph_collate_fn\n\n molgraph_collate_fn (data)\n\n/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... \nParameters \n------------------------------------------------------------------------------------------------------------ in \nClass to create a dataset for MolecularGraphDataset modeling.\n...\n  else: warn(msg)\n/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... \nAttributes \n------------------------------------------------------------------------------------------------------------ in \nClass to create a dataset for MolecularGraphDataset modeling.\n...\n  else: warn(msg)\n/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Attributes\n  else: warn(msg)\n\n\n\n\nMolecularGraphDataset\n\n MolecularGraphDataset (df:pandas.core.frame.DataFrame, smiles_col:str,\n                        targets_col:str, task_id:str=None)\n\nClass to create a dataset for MolecularGraphDataset modeling.\n\n\n\n\n\n\n\n\n\n\nType\nDefault\nDetails\n\n\n\n\ndf\nDataFrame\n\n\n\n\nsmiles_col\nstr\n\nA string representing the column of data with SMILES.\n\n\ntargets_col\nstr\n\nA string representing the column of data with the target variable.\n\n\ntask_id\nstr\nNone\n\n\n\n\n\n\nsave_df\n\n save_df (df, fname:str)\n\nSave DataFrame to file\n/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... \nParameters \n------------------------------------------------------------------------------------------------------------ in \nA generic class to handle tabular (e.g. dataframes) data for QSAR tasks.\n...\n  else: warn(msg)\n/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... \nAttributes \n------------------------------------------------------------------------------------------------------------ in \nA generic class to handle tabular (e.g. dataframes) data for QSAR tasks.\n...\n  else: warn(msg)\n\n\n\n\nMolecularDataset\n\n MolecularDataset (df:pandas.core.frame.DataFrame, smiles_col:str,\n                   targets_col:str)\n\nA generic class to handle tabular (e.g. dataframes) data for QSAR tasks.\n\n\n\n\n\n\n\n\n\nType\nDetails\n\n\n\n\ndf\nDataFrame\nA pandas.DataFrame object with the data used for the modeling task.\n\n\nsmiles_col\nstr\nA string representing the column of df with SMILES.\n\n\ntargets_col\nstr\nA string representing the column of df with the target variable.\n\n\n\n/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... \nArguments: \n----------------------------------------------------------------- in \nParent class for Molecular graphs\n...\n  else: warn(msg)\n/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: potentially wrong underline length... \nAttributes: \n----------------------------------------------------------------- in \nParent class for Molecular graphs\n...\n  else: warn(msg)\n/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Arguments:\n  else: warn(msg)\n/notebooks/cheminformatics/lib/python3.9/site-packages/fastcore/docscrape.py:225: UserWarning: Unknown section Attributes:\n  else: warn(msg)\n\n\n\nMolecularGraph\n\n MolecularGraph (smiles:str, target:<built-infunctionarray>)\n\nParent class for Molecular graphs\n\n\n\nBondFeaturizer\n\n BondFeaturizer ()\n\nInitialize self. See help(type(self)) for accurate signature.\n\n\n\nAtomFeaturizer\n\n AtomFeaturizer ()\n\nInitialize self. See help(type(self)) for accurate signature.\n\n\nconvert_smiles\n\n convert_smiles (mol, sanitize=False)\n\n\n\n\nencode_onehot\n\n encode_onehot (value:int, choices)\n\nCreates a one-hot encoding with an extra category for uncommon values."
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "molgraph",
+    "section": "",
+    "text": "git clone https://github.com/chembl/ChEMBL_Structure_Pipeline.git\npip install ./ChEMBL_Structure_Pipeline\nconda install -c conda-forge rdkit or pip install rdkit-pypi\npip install git+https://github.com/bp-kelley/descriptastorus\npip install fastai"
+  },
+  {
+    "objectID": "layers.html",
+    "href": "layers.html",
+    "title": "molgraph",
+    "section": "",
+    "text": "feed_forward (input_dim:int, hidden_dim:int=100, num_layers:int=2,\n               output_dim:int=1, dropout=0.1,\n               activation=<class'torch.nn.modules.activation.ReLU'>)\n\n\n\n\n\n\n MessageGCN (n_node_features:int, hidden_units:int=100, num_layers:int=2,\n             output_units:int=1, dropout:float=0.15)\n\nMessage function from Graph convolutional network as described by Kipf & Welling (https://arxiv.org/pdf/1609.02907.pdf) and refactored as MPNN formalism.\n\n\n\n\n\n UpdateGCN (n_updated_features:int, hidden_units:int=100,\n            num_layers:int=2, output_units:int=1, dropout:float=0.15)\n\nVertex update function from Graph convolutional network as described by Kipf & Welling (https://arxiv.org/pdf/1609.02907.pdf) and refactored as MPNN formalism."
+  },
+  {
+    "objectID": "model.html",
+    "href": "model.html",
+    "title": "molgraph",
+    "section": "",
+    "text": "GCNMPNmodel (n_node_features:int, hidden_units:int=100, num_layers:int=2,\n              output_units:int=1, dropout:float=0.15, y_range=None)\n\nPrototype Graph convolutional layer as described by Kipf & Welling (https://arxiv.org/pdf/1609.02907.pdf) and refactored as MPNN formalism."
+  },
+  {
+    "objectID": "basics.html",
+    "href": "basics.html",
+    "title": "molgraph",
+    "section": "",
+    "text": "# #| hide\n# from nbdev import nbdev_export\n# nbdev_export()\n\nConverted basics.ipynb."
+  }
+]

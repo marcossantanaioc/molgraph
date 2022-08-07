@@ -3,7 +3,7 @@
 # %% auto 0
 __all__ = ['feed_forward', 'MessageGCN', 'UpdateGCN']
 
-# %% ../notebooks/layers.ipynb 3
+# %% ../notebooks/layers.ipynb 4
 import torch
 from torch import nn
 from fastai.data.core import DataLoader, DataLoaders, Datasets
@@ -12,8 +12,9 @@ from fastcore.basics import *
 from fastai.torch_core import Module
 
 
-# %% ../notebooks/layers.ipynb 4
+# %% ../notebooks/layers.ipynb 5
 def feed_forward(input_dim:int, hidden_dim:int=100, num_layers:int=2, output_dim:int=1, dropout=0.1, activation=nn.ReLU):
+    """Simple function to generate a feed forward neural network with ´num_layers´, ´hidden_dim´ hidden units and ´output_dim´ output units. Default activation function is reLu."""
     dims = [input_dim] + [hidden_dim] * num_layers
     layers = []
     for i in range(num_layers):      
@@ -23,7 +24,7 @@ def feed_forward(input_dim:int, hidden_dim:int=100, num_layers:int=2, output_dim
     layers.append(nn.Linear(hidden_dim, output_dim))
     return nn.Sequential(*layers)
 
-# %% ../notebooks/layers.ipynb 5
+# %% ../notebooks/layers.ipynb 7
 class MessageGCN(Module):
     
     """
@@ -65,7 +66,7 @@ class MessageGCN(Module):
         message = self.message_function(degree_matrix@adjacency_matrix@degree_matrix@node_features)
         return (message, adjacency_matrix, degree_matrix)
 
-# %% ../notebooks/layers.ipynb 6
+# %% ../notebooks/layers.ipynb 9
 class UpdateGCN(Module):
     
     """
