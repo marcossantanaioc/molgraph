@@ -38,8 +38,6 @@ from concurrent.futures import ProcessPoolExecutor
 from sklearn.utils.multiclass import type_of_target
 from sklearn.utils.multiclass import unique_labels
 
-from .utils.sanitizer import *
-
 from typing import Tuple, List, Collection, Iterator
 
 from pathlib import Path
