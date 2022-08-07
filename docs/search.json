@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "molgraph",
     "section": "",
-    "text": "git clone https://github.com/chembl/ChEMBL_Structure_Pipeline.git\npip install ./ChEMBL_Structure_Pipeline\nconda install -c conda-forge rdkit or pip install rdkit-pypi\npip install git+https://github.com/bp-kelley/descriptastorus\npip install fastai"
+    "text": "conda install -c conda-forge rdkit or pip install rdkit-pypi\npip install git+https://github.com/bp-kelley/descriptastorus\npip install fastai"
   },
   {
     "objectID": "layers.html",
