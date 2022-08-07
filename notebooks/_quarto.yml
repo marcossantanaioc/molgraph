@@ -16,7 +16,7 @@ format:
 
 website:
   title: "molgraph"
-  site-url: "https://marcossantanaioc.github.io/molgraph/"
+  site-url: "https://marcossantanaioc.github.io/molgraph//molgraph/"
   description: "A collection of tools to train graph neural networks for QSAR tasks"
   execute: 
     enabled: false

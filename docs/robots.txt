@@ -1,1 +1,1 @@
-Sitemap: https://marcossantanaioc.github.io/molgraph/sitemap.xml
+Sitemap: https://marcossantanaioc.github.io/molgraph//molgraph/sitemap.xml
